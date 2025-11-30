@@ -1,4 +1,3 @@
-# Use a minimal base image
 FROM debian:stable-slim
 
 # Build arguments for environment variables
