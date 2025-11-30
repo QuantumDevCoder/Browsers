@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  vnc-browser:
+    container_name: vnc-browser
+    image: mrcolorrain/vnc-browser:alpine
+    ports:
+      - "5900:5900"
+      - "6080:6080"
+    environment:
+      VNC_PASSWORD: "mypassword"
+    restart: unless-stopped
