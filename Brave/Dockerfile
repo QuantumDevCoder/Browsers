@@ -74,15 +74,21 @@ RUN set -e; \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /etc/supervisor.d /app/conf.d ${DEF_CUSTOM_ENTRYPOINTS_DIR}
+# create directories
+RUN mkdir -p /etc/supervisor.d /app/conf.d ${DEF_CUSTOM_ENTRYPOINTS_DIR} /shell
 RUN mkdir -p /var/log/supervisor
 
+# copy configurations
 COPY supervisord.conf /etc/supervisor.d/supervisord.conf
 COPY conf.d/ /app/conf.d/
-COPY shell/master.sh shell/user.sh /usr/local/bin/
 COPY conf.d/browsers/brave.conf /app/conf.d/
 
-RUN chmod +x /usr/local/bin/base_entrypoint.sh /usr/local/bin/customizable_entrypoint.sh
+# copy entrypoint system
+COPY shell/master.sh /shell/master.sh
+COPY shell/customizable_entrypoint.sh /usr/local/bin/customizable_entrypoint.sh
+
+# permissions
+RUN chmod +x /shell/master.sh /usr/local/bin/customizable_entrypoint.sh
 
 EXPOSE ${VNC_PORT} ${NOVNC_WEBSOCKIFY_PORT}
 
