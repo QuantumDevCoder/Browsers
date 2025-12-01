@@ -1,13 +1,13 @@
 FROM debian:stable-slim
 
-# Build arguments for environment variables
+# Build arguments
 ARG DEF_VNC_SCREEN=0
 ARG DEF_VNC_DISPLAY=0
 ARG DEF_VNC_RESOLUTION=1920x1080
 ARG DEF_VNC_PASSWORD=chromeadmin
 ARG DEF_VNC_PORT=5900
 ARG DEF_NOVNC_WEBSOCKIFY_PORT=6080
-ARG DEF_STARTING_WEBSITE_URL=httpw://www.google.com
+ARG DEF_STARTING_WEBSITE_URL=https://www.google.com
 ARG DEF_LANG=en_US.UTF-8
 ARG DEF_LC_ALL=C.UTF-8
 ARG DEF_CUSTOMIZE=false
@@ -53,10 +53,10 @@ ENV DISPLAY=:${DEF_VNC_DISPLAY}.${DEF_VNC_SCREEN} \
     NOVNC_OPTIONS=${DEF_NOVNC_OPTIONS} \
     XTERM_OPTIONS=${DEF_XTERM_OPTIONS}
 
-# Install dependencies and Google Chrome
+# Install Chrome and dependencies
 RUN set -e; \
     apt update && \
-    apt install -qqy wget gnupg && \
+    apt install -qqy wget gnupg curl apt-transport-https && \
     wget -q -O - https://dl.google.com/linux/linux_signing_key.pub \
         | gpg --dearmor -o /usr/share/keyrings/google-linux-keyring.gpg && \
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-linux-keyring.gpg] https://dl.google.com/linux/chrome/deb/ stable main" \
@@ -79,21 +79,23 @@ RUN set -e; \
     rm -rf /var/lib/apt/lists/*
 
 # Create directories
-RUN mkdir -p /etc/supervisor.d /app/conf.d ${DEF_CUSTOM_ENTRYPOINTS_DIR}
+RUN mkdir -p /etc/supervisor.d /app/conf.d ${DEF_CUSTOM_ENTRYPOINTS_DIR} /shell
 RUN mkdir -p /var/log/supervisor
 
-# Copy configuration files
+# Copy services + configs
 COPY supervisord.conf /etc/supervisor.d/supervisord.conf
 COPY conf.d/ /app/conf.d/
-COPY base_entrypoint.sh customizable_entrypoint.sh /usr/local/bin/
 COPY conf.d/browsers/chrome.conf /app/conf.d/
 
-# Make entrypoint scripts executable
-RUN chmod +x /usr/local/bin/base_entrypoint.sh /usr/local/bin/customizable_entrypoint.sh
+# NEW ENTRYPOINT SYSTEM
+COPY shell/master.sh /shell/master.sh
+COPY shell/user.sh /shell/user.sh
+
+RUN chmod +x /shell/master.sh /shell/user.sh
 
 # Expose ports
 EXPOSE ${VNC_PORT} ${NOVNC_WEBSOCKIFY_PORT}
 
-# Entrypoint
-ENTRYPOINT ["/usr/bin/tini", "--"]
-CMD ["/usr/local/bin/customizable_entrypoint.sh"]
+# Entrypoint (same as Brave)
+ENTRYPOINT ["/usr/bin/tini", "--", "/shell/user.sh"]
+CMD []
