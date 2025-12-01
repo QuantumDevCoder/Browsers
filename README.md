@@ -10,3 +10,6 @@ A collective library of Dockerfile browsers, put together into a docker image. (
    ```
 
 3. Deploy The Dockerfile, And Enjoy.
+
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+CREDIT TO [@MRColorR](https://github.com/MRColorR) For the Base Idea!
