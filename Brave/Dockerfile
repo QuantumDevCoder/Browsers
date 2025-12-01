@@ -79,7 +79,7 @@ RUN mkdir -p /var/log/supervisor
 
 COPY supervisord.conf /etc/supervisor.d/supervisord.conf
 COPY conf.d/ /app/conf.d/
-COPY base_entrypoint.sh customizable_entrypoint.sh /usr/local/bin/
+COPY shell/master.sh shell/user.sh /usr/local/bin/
 COPY conf.d/browsers/brave.conf /app/conf.d/
 
 RUN chmod +x /usr/local/bin/base_entrypoint.sh /usr/local/bin/customizable_entrypoint.sh
