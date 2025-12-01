@@ -85,7 +85,7 @@ COPY conf.d/browsers/brave.conf /app/conf.d/
 
 # copy entrypoint system
 COPY shell/master.sh /shell/master.sh
-COPY shell/customizable_entrypoint.sh /usr/local/bin/customizable_entrypoint.sh
+COPY shell/user.sh /shell/user.sh
 
 # permissions
 RUN chmod +x /shell/master.sh /usr/local/bin/customizable_entrypoint.sh
