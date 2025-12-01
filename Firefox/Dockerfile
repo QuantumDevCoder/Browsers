@@ -1,5 +1,6 @@
 FROM debian:stable-slim
 
+# Build arguments
 ARG DEF_VNC_SCREEN=0
 ARG DEF_VNC_DISPLAY=0
 ARG DEF_VNC_RESOLUTION=1920x1080
@@ -18,6 +19,8 @@ ARG DEF_AUTO_START_WM=true
 ARG DEF_AUTO_START_X11VNC=true
 ARG DEF_AUTO_START_XVFB=true
 ARG DEF_AUTO_START_NOVNC=true
+
+# Firefox has no special browser options by default
 ARG DEF_BROWSER_OPTIONS=
 ARG DEF_X11VNC_OPTIONS=
 ARG DEF_XVFB_OPTIONS=
@@ -25,6 +28,7 @@ ARG DEF_WM_OPTIONS=
 ARG DEF_NOVNC_OPTIONS=
 ARG DEF_XTERM_OPTIONS=
 
+# Environment variables
 ENV DISPLAY=:${DEF_VNC_DISPLAY}.${DEF_VNC_SCREEN} \
     VNC_SCREEN=${DEF_VNC_SCREEN} \
     VNC_DISPLAY=${DEF_VNC_DISPLAY} \
@@ -51,6 +55,7 @@ ENV DISPLAY=:${DEF_VNC_DISPLAY}.${DEF_VNC_SCREEN} \
     NOVNC_OPTIONS=${DEF_NOVNC_OPTIONS} \
     XTERM_OPTIONS=${DEF_XTERM_OPTIONS}
 
+# Install system dependencies + Firefox
 RUN set -e; \
     apt update && \
     apt install -qqy \
@@ -69,17 +74,23 @@ RUN set -e; \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /etc/supervisor.d /app/conf.d ${DEF_CUSTOM_ENTRYPOINTS_DIR}
-RUN mkdir -p /var/log/supervisor
+# Directories
+RUN mkdir -p /etc/supervisor.d /app/conf.d ${DEF_CUSTOM_ENTRYPOINTS_DIR} /shell /var/log/supervisor
 
+# Copy configs
 COPY supervisord.conf /etc/supervisor.d/supervisord.conf
 COPY conf.d/ /app/conf.d/
-COPY base_entrypoint.sh customizable_entrypoint.sh /usr/local/bin/
 COPY conf.d/browsers/firefox.conf /app/conf.d/
 
-RUN chmod +x /usr/local/bin/base_entrypoint.sh /usr/local/bin/customizable_entrypoint.sh
+# Copy entrypoints
+COPY shell/master.sh /shell/master.sh
+COPY shell/user.sh /shell/user.sh
 
+RUN chmod +x /shell/master.sh /shell/user.sh
+
+# Expose ports
 EXPOSE ${VNC_PORT} ${NOVNC_WEBSOCKIFY_PORT}
 
-ENTRYPOINT ["/usr/bin/tini", "--"]
-CMD ["/usr/local/bin/customizable_entrypoint.sh"]
+# Entrypoint
+ENTRYPOINT ["/usr/bin/tini", "--", "/shell/user.sh"]
+CMD []
