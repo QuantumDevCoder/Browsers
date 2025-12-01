@@ -1,9 +1,11 @@
 #!/bin/bash
 set -e
 
-echo "Ready to start"
+echo "Ready to start user.sh"
 
-# Function to run scripts
+# ----------------------------
+# Helper to run scripts
+# ----------------------------
 run_script() {
     local script=$1
     case "$script" in
@@ -27,52 +29,77 @@ run_script() {
     esac
 }
 
+# ----------------------------
+# Set up browser profile directory
+# ----------------------------
+case "$BROWSER" in
+    google-chrome*|chrome*|chromium*)
+        PROFILE_DIR="${PROFILE_DIR:-/browser-data/chrome}"
+        ;;
+    microsoft-edge*)
+        PROFILE_DIR="${PROFILE_DIR:-/browser-data/edge}"
+        ;;
+    firefox*|firefox-esr*)
+        PROFILE_DIR="${PROFILE_DIR:-/browser-data/firefox}"
+        ;;
+    opera*)
+        PROFILE_DIR="${PROFILE_DIR:-/browser-data/opera}"
+        ;;
+    vivaldi*)
+        PROFILE_DIR="${PROFILE_DIR:-/browser-data/vivaldi}"
+        ;;
+    brave*)
+        PROFILE_DIR="${PROFILE_DIR:-/browser-data/brave}"
+        ;;
+    *)
+        echo "Unknown browser: $BROWSER, defaulting to chromium"
+        PROFILE_DIR="${PROFILE_DIR:-/browser-data/chrome}"
+        BROWSER="chromium"
+        ;;
+esac
+
+mkdir -p "$PROFILE_DIR"
+echo "Browser profile directory: $PROFILE_DIR"
+
+# ----------------------------
+# Customization logic
+# ----------------------------
 if [ "$CUSTOMIZE" = "true" ]; then
     echo "Customization is enabled."
 
-    # Ensure /shell exists
     mkdir -p /shell
 
-    # Check if master entrypoint exists
+    # Copy and run master.sh in background
     if [ -f /shell/master.sh ]; then
-        echo "Copying /shell/master.sh to /shell/user.sh..."
-        cp /shell/master.sh /shell/user.sh
-        chmod +x /shell/user.sh
-
-        echo "Running /shell/user.sh in background..."
-        /shell/user.sh &
-        echo "user.sh is running."
-        sleep 10
+        echo "Running /shell/master.sh in background..."
+        cp /shell/master.sh /shell/user_master.sh
+        chmod +x /shell/user_master.sh
+        /shell/user_master.sh &
+        sleep 5
     else
-        echo "Master entry point not found: /shell/master.sh" >&2
+        echo "Master entrypoint not found: /shell/master.sh" >&2
         exit 1
     fi
 
-    # Run all bash or Python scripts inside custom entrypoints folder
-    echo "Looking for custom entry point scripts..."
+    # Run all custom scripts
     if [ -d "$CUSTOM_ENTRYPOINTS_DIR" ]; then
-        echo "Found custom entrypoints directory: $CUSTOM_ENTRYPOINTS_DIR"
-        echo "$(ls -la $CUSTOM_ENTRYPOINTS_DIR)"
-
+        echo "Found custom entrypoints in $CUSTOM_ENTRYPOINTS_DIR"
         for script in "$CUSTOM_ENTRYPOINTS_DIR"/*.{sh,py}; do
-            if [ -f "$script" ]; then
-                echo "Running custom entry point script: $script"
-                run_script "$script"
-            fi
+            [ -f "$script" ] && run_script "$script"
         done
     else
-        echo "Custom entrypoints directory not found: $CUSTOM_ENTRYPOINTS_DIR" >&2
-        exit 1
+        echo "No custom entrypoints directory found: $CUSTOM_ENTRYPOINTS_DIR"
     fi
 
-    echo "Customization completed. If no additional services are defined then the container will exit."
+    echo "Customization completed. Container will remain running for services."
+    wait  # Keep background processes alive
 
 else
-    echo "Customization is disabled. Running /shell/master.sh in foreground..."
+    echo "Customization disabled. Running /shell/master.sh in foreground..."
     if [ -f /shell/master.sh ]; then
         exec /shell/master.sh
     else
-        echo "Master entry point script not found: /shell/master.sh" >&2
+        echo "Master entrypoint not found: /shell/master.sh" >&2
         exit 1
     fi
 fi
