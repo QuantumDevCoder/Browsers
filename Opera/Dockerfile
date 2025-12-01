@@ -1,4 +1,3 @@
-# Use a minimal base image
 FROM debian:stable-slim
 
 # Build arguments
@@ -79,21 +78,22 @@ RUN set -e; \
     rm -rf /var/lib/apt/lists/*
 
 # Directories
-RUN mkdir -p /etc/supervisor.d /app/conf.d ${DEF_CUSTOM_ENTRYPOINTS_DIR}
-RUN mkdir -p /var/log/supervisor
+RUN mkdir -p /etc/supervisor.d /app/conf.d ${DEF_CUSTOM_ENTRYPOINTS_DIR} /shell /var/log/supervisor
 
 # Copy configs
 COPY supervisord.conf /etc/supervisor.d/supervisord.conf
 COPY conf.d/ /app/conf.d/
-COPY base_entrypoint.sh customizable_entrypoint.sh /usr/local/bin/
 COPY conf.d/browsers/opera.conf /app/conf.d/
 
-# Permissions
-RUN chmod +x /usr/local/bin/base_entrypoint.sh /usr/local/bin/customizable_entrypoint.sh
+# Copy entrypoints
+COPY shell/master.sh /shell/master.sh
+COPY shell/user.sh /shell/user.sh
 
-# Expose VNC + noVNC
+RUN chmod +x /shell/master.sh /shell/user.sh
+
+# Expose ports
 EXPOSE ${VNC_PORT} ${NOVNC_WEBSOCKIFY_PORT}
 
 # Entrypoint
-ENTRYPOINT ["/usr/bin/tini", "--"]
-CMD ["/usr/local/bin/customizable_entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/tini", "--", "/shell/user.sh"]
+CMD []
