@@ -86,7 +86,7 @@ RUN mkdir -p /var/log/supervisor
 COPY supervisord.conf /etc/supervisor.d/supervisord.conf
 COPY conf.d/ /app/conf.d/
 COPY base_entrypoint.sh customizable_entrypoint.sh /usr/local/bin/
-COPY browser_conf/chrome.conf /app/conf.d/
+COPY conf.d/browsers/chrome.conf /app/conf.d/
 
 # Make entrypoint scripts executable
 RUN chmod +x /usr/local/bin/base_entrypoint.sh /usr/local/bin/customizable_entrypoint.sh
