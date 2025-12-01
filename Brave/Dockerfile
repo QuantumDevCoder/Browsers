@@ -88,7 +88,7 @@ COPY shell/master.sh /shell/master.sh
 COPY shell/user.sh /shell/user.sh
 
 # permissions
-RUN chmod +x /shell/master.sh /usr/local/bin/customizable_entrypoint.sh
+RUN chmod +x /shell/master.sh /shell/user.sh
 
 EXPOSE ${VNC_PORT} ${NOVNC_WEBSOCKIFY_PORT}
 
