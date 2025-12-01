@@ -92,5 +92,5 @@ RUN chmod +x /shell/master.sh /shell/user.sh
 
 EXPOSE ${VNC_PORT} ${NOVNC_WEBSOCKIFY_PORT}
 
-ENTRYPOINT ["/usr/bin/tini", "--"]
-CMD ["/usr/local/bin/customizable_entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/tini", "--", "/shell/user.sh"]
+CMD []
