@@ -20,22 +20,12 @@ A collective library of Dockerfile browsers, put together into a docker image. (
    
   | **Type** | **Browser**            | **Size** |
   |---|---|---|
-  | `edge` | Microsoft Edge            | 7.2 GB   |
-  | `opera`| Opera Browser             | 4.7 GB   |
-  | `chrome`| Google Chrome            | 6.6 GB   |
-  | `chromium`| Google Chromium        | 5.7 GB   |
-  | `firefox` | Mozilla Firefox        | 4.6 GB   |
-  | `brave`  | Brave Software Inc.     | 5.2 GB   |
-  | `vivaldi`| Vivaldi Technologies Inc. | 3.7 GB   |
-  | `7u`   | Windows 7 Ultimate        | 3.1 GB   |
-  | `vu`   | Windows Vista Ultimate    | 3.0 GB   |
-  | `xp`   | Windows XP Professional   | 0.6 GB   |
-  | `2k`   | Windows 2000 Professional | 0.4 GB   | 
-  ||||  
-  | `2025` | Windows Server 2025       | 6.7 GB   |
-  | `2022` | Windows Server 2022       | 6.0 GB   |
-  | `2019` | Windows Server 2019       | 5.3 GB   |
-  | `2016` | Windows Server 2016       | 6.5 GB   |
-  | `2012` | Windows Server 2012       | 4.3 GB   |
-  | `2008` | Windows Server 2008       | 3.0 GB   |
-  | `2003` | Windows Server 2003       | 0.6 GB   |
+  | `edge` | Microsoft Edge            | 556.02 MB |
+  | `opera`| Opera Browser             | 467.24 MB |
+  | `chrome`| Google Chrome            | 471.67 MB |
+  | `chromium`| Google Chromium        | 465.91 MB |
+  | `firefox` | Mozilla Firefox        | 403.18 MB |
+  | `brave`  | Brave Software Inc.     | 481.35 MB |
+  | `vivaldi`| Vivaldi Technologies Inc. | 480.26 MB |
+
+
