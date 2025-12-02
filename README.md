@@ -28,4 +28,23 @@ A collective library of Dockerfile browsers, put together into a docker image. (
   | `brave`  | Brave Software Inc.     | 481.35 MB |
   | `vivaldi`| Vivaldi Technologies Inc. | 480.26 MB |
 
+## EXAMPLES START
+2. Apply it to the Docker Compose file, Here is an example (I am going to use Microsoft Edge For this Example)
+   ### EXAMPLE Docker Tag: dockerbrowsers/edge:latest
+   1. Note that After `dockerbrowsers/`, there is the "Type" name of the Browser in the Chart Above. (E.G. In this case `edge` would be Microsoft Edge)
 
+3. Use this example tempelate of the Microsoft edge docker compose:
+```yaml
+version: "3.9"
+
+services:
+  browser:
+    image: dockerbrowsers/edge:latest
+    container_name: edge_browser
+    restart: unless-stopped
+    ports:
+      - "6080:6080"   
+    environment:
+      - ENV_VAR=example
+```
+### Then, After connecting to the 6080 port, you should be at this "Directory Listing For" screen: <img width="1365" height="738" alt="Screenshot 2025-12-01 10 05 18 PM" src="https://github.com/user-attachments/assets/91a6b314-cdeb-4b58-a802-78386f38960f" />
