@@ -18,9 +18,9 @@ A collective library of Dockerfile browsers, put together into a docker image. (
 ## Docker Compose
 1. Select an Browser From the list below:
    
-  | **name** | **Version**            | **Size** |
+  | **Name** | **Browser**            | **Size** |
   |---|---|---|
-  | `11`   | Windows 11 Pro            | 7.2 GB   |
+  | `edge`   | Microsoft Edge           | 7.2 GB   |
   | `11l`  | Windows 11 LTSC           | 4.7 GB   |
   | `11e`  | Windows 11 Enterprise     | 6.6 GB   |
   ||||
