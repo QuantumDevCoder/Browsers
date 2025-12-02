@@ -53,7 +53,8 @@ services:
 3. Enjoy your New Browser!
 
 # SCREENSHOTS
-<img width="200" height="133" alt="image" src="https://github.com/user-attachments/assets/9f7ceba3-d70f-4088-bf46-65f361adcead" /> <img width="200" height="152" alt="image" src="https://github.com/user-attachments/assets/60bfa7d2-54c1-4125-bfa8-95d7eb3b2ccf" /> <img width="200" height="133" alt="image" src="https://github.com/user-attachments/assets/afb4fedf-5346-42b7-a2b3-f41328081dcf" />
+<img width="200" height="133" alt="image" src="https://github.com/user-attachments/assets/9f7ceba3-d70f-4088-bf46-65f361adcead" /> <img width="200" height="152" alt="image" src="https://github.com/user-attachments/assets/60bfa7d2-54c1-4125-bfa8-95d7eb3b2ccf" /> <img width="200" height="133" alt="image" src="https://github.com/user-attachments/assets/afb4fedf-5346-42b7-a2b3-f41328081dcf" /> <img width="1365" height="767" alt="image" src="https://github.com/user-attachments/assets/d2128248-3c7b-4a8d-8de6-b852e473436c" />
+
 
 
 
