@@ -14,37 +14,37 @@ updates:
       - "Opera/**"
       - "Vivaldi/**"
       
-  - package-ecosystem: "docker"
-    directory: "/Brave/Dockerfile"
-    schedule:
-      interval: "weekly"
+- package-ecosystem: "docker"
+  directory: "/Brave"
+  schedule:
+    interval: "daily"
 
-  - package-ecosystem: "docker"
-    directory: "/Chrome/Dockerfile"
-    schedule:
-      interval: "weekly"
+- package-ecosystem: "docker"
+  directory: "/Chrome"
+  schedule:
+    interval: "daily"
 
-  - package-ecosystem: "docker"
-    directory: "/Chromium/Dockerfile"
-    schedule:
-      interval: "weekly"
+- package-ecosystem: "docker"
+  directory: "/Chromium"
+  schedule:
+    interval: "daily"
 
-  - package-ecosystem: "docker"
-    directory: "/Edge/Dockerfile"
-    schedule:
-      interval: "weekly"
+- package-ecosystem: "docker"
+  directory: "/Edge"
+  schedule:
+    interval: "daily"
 
-  - package-ecosystem: "docker"
-    directory: "/Firefox/Dockerfile"
-    schedule:
-      interval: "weekly"
+- package-ecosystem: "docker"
+  directory: "/Firefox"
+  schedule:
+    interval: "daily"
 
-  - package-ecosystem: "docker"
-    directory: "/Opera/Dockerfile"
-    schedule:
-      interval: "weekly"
+- package-ecosystem: "docker"
+  directory: "/Opera"
+  schedule:
+    interval: "daily"
 
-  - package-ecosystem: "docker"
-    directory: "/Vivaldi/Dockerfile"
-    schedule:
-      interval: "weekly"
+- package-ecosystem: "docker"
+  directory: "/Vivaldi"
+  schedule:
+    interval: "daily"
