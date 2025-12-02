@@ -18,17 +18,15 @@ A collective library of Dockerfile browsers, put together into a docker image. (
 ## Docker Compose
 1. Select an Browser From the list below:
    
-  | **Name** | **Browser**            | **Size** |
+  | **Type** | **Browser**            | **Size** |
   |---|---|---|
-  | `edge`   | Microsoft Edge           | 7.2 GB   |
-  | `11l`  | Windows 11 LTSC           | 4.7 GB   |
-  | `11e`  | Windows 11 Enterprise     | 6.6 GB   |
-  ||||
-  | `10`   | Windows 10 Pro            | 5.7 GB   |
-  | `10l`  | Windows 10 LTSC           | 4.6 GB   |
-  | `10e`  | Windows 10 Enterprise     | 5.2 GB   |
-  ||||
-  | `8e`   | Windows 8.1 Enterprise    | 3.7 GB   |
+  | `edge` | Microsoft Edge            | 7.2 GB   |
+  | `opera`| Opera Browser             | 4.7 GB   |
+  | `chrome`| Google Chrome            | 6.6 GB   |
+  | `chromium`| Google Chromium        | 5.7 GB   |
+  | `firefox` | Mozilla Firefox        | 4.6 GB   |
+  | `brave`  | Brave Software Inc.     | 5.2 GB   |
+  | `vivaldi`| Vivaldi Technologies Inc. | 3.7 GB   |
   | `7u`   | Windows 7 Ultimate        | 3.1 GB   |
   | `vu`   | Windows Vista Ultimate    | 3.0 GB   |
   | `xp`   | Windows XP Professional   | 0.6 GB   |
