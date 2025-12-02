@@ -48,3 +48,11 @@ services:
       - ENV_VAR=example
 ```
 ### Then, After connecting to the 6080 port, you should be at this "Directory Listing For" screen: <img width="1365" height="738" alt="Screenshot 2025-12-01 10 05 18 PM" src="https://github.com/user-attachments/assets/91a6b314-cdeb-4b58-a802-78386f38960f" />
+1. Click on the `vnc.html` Link, and you should now be at <img width="1365" height="911" alt="image" src="https://github.com/user-attachments/assets/b7213f91-0d1e-4230-bdd4-c13a8b6886d7" />
+2. Click on `Connect` And Based On your browser selection, put the browser name at the first, then add the word "admin" after it (E.G. If using Edge, the password would be `edgeadmin`)
+3. Enjoy your New Browser!
+
+# SCREENSHOTS
+<img width="200" height="133" alt="image" src="https://github.com/user-attachments/assets/9f7ceba3-d70f-4088-bf46-65f361adcead" />
+
+
