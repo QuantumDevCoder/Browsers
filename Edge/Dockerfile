@@ -95,11 +95,10 @@ COPY shell/user.sh /shell/user.sh
 
 RUN chmod +x /shell/master.sh /shell/user.sh
 
-# Change noVNC page title to "testweb"
-RUN sed -i 's|<title>.*</title>|<title>testweb</title>|' /usr/share/novnc/vnc.html
-
-# Replace noVNC favicon/logo
-COPY images/favicon.png /usr/share/novnc/include/logo.png
+# Copy favicon and replace tab title
+COPY images/favicon.png /usr/share/novnc/app/images/favicon.png
+RUN sed -i 's|<link rel="shortcut icon".*|<link rel="shortcut icon" href="images/favicon.png">|' /usr/share/novnc/app/index.html && \
+    sed -i 's|<title>.*</title>|<title>testweb</title>|' /usr/share/novnc/app/index.html
 
 # Expose required ports
 EXPOSE ${VNC_PORT} ${NOVNC_WEBSOCKIFY_PORT}
