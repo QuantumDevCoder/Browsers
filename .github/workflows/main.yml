@@ -24,19 +24,17 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Create branch and push
-        if: false
         run: |
-          git config user.name "github"
+          git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           BRANCH="auto-pr-${{ github.sha }}-${{ matrix.os }}"
           git checkout -b $BRANCH
-          echo "Docker image info for ${{ matrix.os }}: my-app-${{ matrix.os }}:${{ github.sha }}" > docker-info-${{ matrix.os }}.txt
+          echo "Docker image info for ${{ matrix.os }}: $IMAGE_TAG" > docker-info-${{ matrix.os }}.txt
           git add docker-info-${{ matrix.os }}.txt
-          git commit -m "Add Docker info for ${{ matrix.os }}"
+          git commit -m "Add Docker info for $IMAGE_TAG"
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/QuantumDevCoder/Browsers.git $BRANCH
 
       - name: Create Pull Request
-        if: false
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -45,4 +43,4 @@ jobs:
           title: "Automated PR: Docker update $IMAGE_TAG"
           body: |
             This PR was created automatically by GitHub Actions.
-            Docker image $IMAGE_TAG has been built, SHA computed, and pushed.
+            Docker image $IMAGE_TAG has been built and pushed.
