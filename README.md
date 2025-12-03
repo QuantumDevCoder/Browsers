@@ -1,4 +1,5 @@
-<img width="3824" height="1424" alt="Screenshot 2025-12-02 6 25" src="https://github.com/user-attachments/assets/a3444479-97e8-43e5-899b-ebfa3927b31c" />
+<img width="3824" height="823" alt="Screenshot 2025-12-02 6 25" src="https://github.com/user-attachments/assets/72d8165c-db57-44d2-a8b7-1c473eb11e17" />
+
 
 # Browsers
 A collective library of Dockerfile browsers, put together into a docker image. (Browsers include Microsoft Edge, FireFox, Opera, etc.)
