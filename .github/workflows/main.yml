@@ -23,21 +23,20 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # 6. Create new branch for PR
-      - name: Create branch
+      - name: Create branch and push
+        if: false
         run: |
-          git config user.name "github-actions[bot]"
+          git config user.name "github"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           BRANCH="auto-pr-${{ github.sha }}-${{ matrix.os }}"
           git checkout -b $BRANCH
-          echo "Docker image for ${{ matrix.os }}: my-app-${{ matrix.os }}:${{ github.sha }}" > docker-info-${{ matrix.os }}.txt
+          echo "Docker image info for ${{ matrix.os }}: my-app-${{ matrix.os }}:${{ github.sha }}" > docker-info-${{ matrix.os }}.txt
           git add docker-info-${{ matrix.os }}.txt
           git commit -m "Add Docker info for ${{ matrix.os }}"
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/QuantumDevCoder/Browsers.git $BRANCH
 
-
-      # 7. Create Pull Request
       - name: Create Pull Request
+        if: false
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
