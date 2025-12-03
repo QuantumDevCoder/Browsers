@@ -30,12 +30,11 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           BRANCH="auto-pr-${{ github.sha }}-${{ matrix.os }}"
           git checkout -b $BRANCH
-          # Create/update file with SHA info
-          echo "Docker image for ${{ matrix.os }}: $IMAGE_TAG" > docker-info-${{ matrix.os }}.txt
-          echo "SHA=${SHA}" >> docker-info-${{ matrix.os }}.txt
+          echo "Docker image for ${{ matrix.os }}: my-app-${{ matrix.os }}:${{ github.sha }}" > docker-info-${{ matrix.os }}.txt
           git add docker-info-${{ matrix.os }}.txt
-          git commit -m "Add Docker info for $IMAGE_TAG"
-          git push origin $BRANCH
+          git commit -m "Add Docker info for ${{ matrix.os }}"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/QuantumDevCoder/Browsers.git $BRANCH
+
 
       # 7. Create Pull Request
       - name: Create Pull Request
