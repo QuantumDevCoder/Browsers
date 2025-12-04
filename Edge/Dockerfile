@@ -97,7 +97,7 @@ RUN chmod +x /shell/master.sh /shell/user.sh
 
 # Copy favicon and replace tab title
 COPY images/favicon.png /usr/share/novnc/app/images/favicon.png
-RUN sed -i 's|<link rel="shortcut icon".*|<link rel="shortcut icon" href="images/favicon.png">|' /usr/share/novnc/app/index.html && \
+RUN sed -i 's|<link rel="shortcut icon".*|<link rel="shortcut icon" href="images/favicon.png">|' /usr/share/novnc/vnc.html && \
     sed -i 's|<title>.*</title>|<title>testweb</title>|' /usr/share/novnc/vnc.html
 
 # Expose required ports
