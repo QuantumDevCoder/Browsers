@@ -96,14 +96,11 @@ COPY shell/user.sh /shell/user.sh
 RUN chmod +x /shell/master.sh /shell/user.sh
 
 COPY images/favicon.png /usr/share/novnc/app/images/favicon.png
-# Fix favicon + tab title in vnc.html
+COPY images/custom.js /usr/share/novnc/app/custom.js
+
+# Fix login page favicon and title (vnc.html)
 RUN sed -i 's|<link rel="shortcut icon".*|<link rel="shortcut icon" href="images/favicon.png">|' /usr/share/novnc/vnc.html && \
     sed -i 's|<title>.*</title>|<title>testweb</title>|' /usr/share/novnc/vnc.html
-
-# Fix favicon + tab title after connecting to VNC (ui.js)
-RUN sed -i 's|document.title = ".*"|document.title = "testweb"|' /usr/share/novnc/app/ui.js && \
-    sed -i 's|var link = document.querySelector("link[rel=\"shortcut icon\"]");|var link = document.querySelector("link[rel=\"shortcut icon\"]"); link.href = "images/favicon.png";|' /usr/share/novnc/app/ui.js
-
 # Expose required ports
 EXPOSE ${VNC_PORT} ${NOVNC_WEBSOCKIFY_PORT}
 
