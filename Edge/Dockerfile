@@ -95,11 +95,16 @@ COPY shell/user.sh /shell/user.sh
 
 RUN chmod +x /shell/master.sh /shell/user.sh
 
-# Copy favicon and replace tab title
 COPY images/favicon.png /usr/share/novnc/app/images/favicon.png
-# Fix the "in-session" noVNC UI (ui.html)
+
+# Fix favicon + tab title on the login screen (vnc.html)
+RUN sed -i 's|<link rel="shortcut icon".*|<link rel="shortcut icon" href="images/favicon.png">|' /usr/share/novnc/vnc.html && \
+    sed -i 's|<title>.*</title>|<title>testweb</title>|' /usr/share/novnc/vnc.html
+
+# Fix favicon + tab title after connecting to VNC (ui.html)
 RUN sed -i 's|<link rel="shortcut icon".*|<link rel="shortcut icon" href="images/favicon.png">|' /usr/share/novnc/app/ui.html && \
     sed -i 's|<title>.*</title>|<title>testweb</title>|' /usr/share/novnc/app/ui.html
+
 
 # Expose required ports
 EXPOSE ${VNC_PORT} ${NOVNC_WEBSOCKIFY_PORT}
