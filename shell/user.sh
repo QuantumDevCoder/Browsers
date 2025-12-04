@@ -3,6 +3,21 @@ set -e
 
 echo "Ready to start user.sh"
 
+# -----------------------------------------
+# Inject custom favicon and title into NoVNC UI
+# -----------------------------------------
+CUSTOM_JS="/usr/share/novnc/app/custom.js"
+
+# If our custom.js exists, patch ui.js so it loads after login
+if [ -f "$CUSTOM_JS" ]; then
+    echo "[INFO] Injecting custom.js into NoVNC ui.js"
+    # Only patch once (avoid multiple appends on restarts)
+    if ! grep -q "custom.js" /usr/share/novnc/app/ui.js; then
+        echo "console.log('Injecting custom.js');" >> /usr/share/novnc/app/ui.js
+        echo "fetch('custom.js').then(resp => resp.text()).then(code => { eval(code); });" >> /usr/share/novnc/app/ui.js
+    fi
+fi
+
 # ----------------------------
 # Helper to run scripts
 # ----------------------------
